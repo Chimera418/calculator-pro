@@ -38,6 +38,7 @@
 .env.production
 .env.staging
 .env.development.local
+.env.vercel
 
 # ─── Debug logs ──────────────────────────────────────────────────────────────
 npm-debug.log*
