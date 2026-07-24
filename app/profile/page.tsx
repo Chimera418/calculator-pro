@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { auth } from "@/features/auth/config";
 import { getUnlockedFeatureSlugs, getCalculationHistory } from "@/lib/user-features";
 import { FEATURES, ALL_FEATURE_SLUGS } from "@/lib/constants";
@@ -24,6 +25,14 @@ export default async function ProfilePage() {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">
+      <div className="mb-6">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-[var(--muted)] transition hover:bg-[var(--surface-2)] hover:text-[var(--fg)]"
+        >
+          ← Calculator
+        </Link>
+      </div>
       <header className="mb-8 flex items-center gap-4">
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-xl font-semibold text-[var(--accent-fg)]">
           {(session.user.name ?? session.user.email ?? "?").charAt(0).toUpperCase()}

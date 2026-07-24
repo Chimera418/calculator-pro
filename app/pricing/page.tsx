@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PricingTable } from "@/components/pricing/PricingTable";
 
 export const metadata = {
@@ -7,6 +8,14 @@ export const metadata = {
 export default function PricingPage() {
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 sm:py-14">
+      <div className="mb-6">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-[var(--muted)] transition hover:bg-[var(--surface-2)] hover:text-[var(--fg)]"
+        >
+          ← Calculator
+        </Link>
+      </div>
       <header className="mb-10 text-center">
         <h1 className="text-3xl font-semibold tracking-tight text-[var(--fg)]">
           Pricing
