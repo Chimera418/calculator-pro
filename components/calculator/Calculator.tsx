@@ -88,7 +88,8 @@ export function Calculator() {
   }, [calc, unlocked, openPurchase, clearEgg]);
 
   return (
-    <div className="grid w-full gap-4 lg:grid-cols-[minmax(0,1fr)_20rem]">
+    <div className="mx-auto w-full max-w-2xl">
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_18rem]">
       <div className="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-[var(--shadow)] sm:p-5">
         <div className="mb-3">
           <ModeToggle mode={calc.mode} onChange={calc.toggleMode} />
@@ -111,6 +112,7 @@ export function Calculator() {
           onClear={calc.clearSessionHistory}
           onReuse={(result) => calc.input(result)}
         />
+      </div>
       </div>
     </div>
   );
