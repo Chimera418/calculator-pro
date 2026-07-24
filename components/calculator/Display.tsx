@@ -55,13 +55,13 @@ export function Display({
       </div>
 
       <div className="mt-2 min-h-[3rem] text-right">
-        <AnimatePresence mode="popLayout" initial={false}>
+        <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={main}
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.15 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.1, ease: "easeInOut" }}
             className={cn(
               "tnum break-all text-right text-4xl font-light tracking-tight text-[var(--fg)] sm:text-5xl",
               error && "animate-shake text-[var(--danger)]",
