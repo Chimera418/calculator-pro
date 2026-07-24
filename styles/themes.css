@@ -1,0 +1,95 @@
+/*
+ * Pay2Win Calculator — theme palettes.
+ * Free themes: light, dark. Premium (Ultimate Edition): midnight, paper, retro.
+ * Each theme sets the same token contract consumed across the app.
+ */
+
+:root,
+[data-theme="light"] {
+  --bg: #f5f5f7;
+  --surface: #ffffff;
+  --surface-2: #f2f2f5;
+  --surface-3: #e8e8ed;
+  --fg: #1d1d1f;
+  --muted: #6e6e73;
+  --border: #e2e2e7;
+  --accent: #0071e3;
+  --accent-fg: #ffffff;
+  --danger: #d70015;
+  --success: #1a7f37;
+  --lock: #a1a1a6;
+  --display-bg: #f5f5f7;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] {
+  --bg: #000000;
+  --surface: #161617;
+  --surface-2: #1f1f22;
+  --surface-3: #2a2a2e;
+  --fg: #f5f5f7;
+  --muted: #98989d;
+  --border: #2c2c2e;
+  --accent: #0a84ff;
+  --accent-fg: #ffffff;
+  --danger: #ff453a;
+  --success: #30d158;
+  --lock: #636366;
+  --display-bg: #0a0a0a;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="midnight"] {
+  --bg: #050510;
+  --surface: #0f0f22;
+  --surface-2: #16163020;
+  --surface-3: #1e1e40;
+  --fg: #e0e0ff;
+  --muted: #8a8ab5;
+  --border: #24244a;
+  --accent: #7c3aed;
+  --accent-fg: #ffffff;
+  --danger: #f43f5e;
+  --success: #34d399;
+  --lock: #4b4b7a;
+  --display-bg: #08081a;
+  --shadow: 0 1px 3px rgba(124, 58, 237, 0.2), 0 12px 40px rgba(124, 58, 237, 0.25);
+}
+
+[data-theme="paper"] {
+  --bg: #efece3;
+  --surface: #faf9f4;
+  --surface-2: #f2efe6;
+  --surface-3: #e7e2d4;
+  --fg: #2a2622;
+  --muted: #7a7266;
+  --border: #ddd6c7;
+  --accent: #92400e;
+  --accent-fg: #fefaf3;
+  --danger: #b91c1c;
+  --success: #4d7c0f;
+  --lock: #b3a992;
+  --display-bg: #f5f1e8;
+  --shadow: 0 1px 2px rgba(80, 60, 30, 0.1), 0 8px 24px rgba(80, 60, 30, 0.12);
+}
+
+[data-theme="retro"] {
+  --bg: #0a0d07;
+  --surface: #0f140a;
+  --surface-2: #131a0d;
+  --surface-3: #1b2411;
+  --fg: #33ff66;
+  --muted: #1f9940;
+  --border: #1f3315;
+  --accent: #33ff66;
+  --accent-fg: #04140a;
+  --danger: #ff5555;
+  --success: #33ff66;
+  --lock: #1a6633;
+  --display-bg: #060a04;
+  --shadow: 0 0 0 1px rgba(51, 255, 102, 0.15), 0 0 32px rgba(51, 255, 102, 0.12);
+}
+
+[data-theme="retro"] {
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
