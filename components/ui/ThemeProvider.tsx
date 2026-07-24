@@ -32,11 +32,13 @@ export function ThemeProvider({
 }) {
   const [theme, setThemeState] = React.useState<CalcTheme>(initialTheme);
 
-  // Apply theme to <html> and sync localStorage.
+  // Apply theme to <html>, sync localStorage, and write a cookie so the
+  // server-side render reads the correct theme on next navigation.
   React.useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     try {
       window.localStorage.setItem("p2w-theme", theme);
+      document.cookie = `p2w-theme=${theme};path=/;max-age=31536000;samesite=lax`;
     } catch {
       /* ignore */
     }
