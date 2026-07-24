@@ -10,11 +10,11 @@ export async function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--bg)]/80 backdrop-blur-md">
       <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
-        <Link href="/" className="group flex items-center gap-2.5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--accent)] text-sm font-bold text-[var(--accent-fg)]">
+        <Link href="/" className="group flex items-center gap-3">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--accent)] text-sm font-bold text-[var(--accent-fg)]">
             =
           </span>
-          <span className="flex flex-col leading-none">
+          <span className="flex flex-col justify-center leading-tight">
             <span className="text-sm font-semibold tracking-tight text-[var(--fg)]">
               Calculator Pro
             </span>
