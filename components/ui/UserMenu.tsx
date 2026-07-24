@@ -17,6 +17,7 @@ export function UserMenu({
   image?: string | null;
 }) {
   const initial = (name ?? email ?? "?").charAt(0).toUpperCase();
+  const [isPending, startTransition] = React.useTransition();
 
   return (
     <DropdownMenu.Root>
@@ -60,15 +61,17 @@ export function UserMenu({
             </Link>
           </DropdownMenu.Item>
           <DropdownMenu.Separator className="my-1 h-px bg-[var(--border)]" />
-          <DropdownMenu.Item asChild>
-            <form action={doSignOut}>
-              <button
-                type="submit"
-                className="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-[var(--danger)] outline-none transition data-[highlighted]:bg-[var(--surface-2)]"
-              >
-                <LogOut className="h-4 w-4" /> Sign out
-              </button>
-            </form>
+          <DropdownMenu.Item
+            className="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-sm text-[var(--danger)] outline-none transition data-[highlighted]:bg-[var(--surface-2)] data-[disabled]:opacity-50"
+            disabled={isPending}
+            onSelect={(e) => {
+              e.preventDefault();
+              startTransition(() => {
+                doSignOut();
+              });
+            }}
+          >
+            <LogOut className="h-4 w-4" /> Sign out
           </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Portal>
