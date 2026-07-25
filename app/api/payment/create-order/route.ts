@@ -19,6 +19,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
 
+  const isTest = session.user.email === "demo@calculator-pro.app";
+
   const json = await req.json().catch(() => null);
   const parsed = bodySchema.safeParse(json);
   if (!parsed.success) {
@@ -59,6 +61,7 @@ export async function POST(req: Request) {
       currency: "INR",
       receipt: `feat_${slug}_${Date.now()}`.slice(0, 40),
       notes: { userId: session.user.id, featureSlug: slug },
+      isTest,
     });
 
     await prisma.order.create({
@@ -76,7 +79,7 @@ export async function POST(req: Request) {
       orderId: rzpOrder.id,
       amount: featureDef.price,
       currency: "INR",
-      key: getPublicKeyId(),
+      key: getPublicKeyId(isTest),
       featureSlug: slug,
       featureName: featureDef.name,
     });

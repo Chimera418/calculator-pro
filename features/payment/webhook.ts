@@ -14,8 +14,9 @@ export function verifyPaymentSignature(params: {
   razorpayPaymentId: string;
   razorpaySignature: string;
   secret?: string;
+  isTest?: boolean;
 }): boolean {
-  const secret = params.secret ?? process.env.RAZORPAY_KEY_SECRET;
+  const secret = params.secret ?? (params.isTest ? process.env.RAZORPAY_TEST_KEY_SECRET : process.env.RAZORPAY_KEY_SECRET);
   if (!secret) throw new Error("RAZORPAY_KEY_SECRET is not configured");
 
   const expected = crypto

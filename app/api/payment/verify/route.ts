@@ -20,6 +20,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
 
+  const isTest = session.user.email === "demo@calculator-pro.app";
+
   const json = await req.json().catch(() => null);
   const parsed = bodySchema.safeParse(json);
   if (!parsed.success) {
@@ -33,6 +35,7 @@ export async function POST(req: Request) {
     razorpayOrderId,
     razorpayPaymentId,
     razorpaySignature,
+    isTest,
   });
   if (!valid) {
     return NextResponse.json({ success: false, message: "Invalid signature" }, { status: 400 });
