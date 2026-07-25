@@ -1,0 +1,18 @@
+#!/bin/sh
+# Sync .env.vercel -> Vercel production env before pushing main.
+# Never blocks the push: if the sync fails, we warn and let the push proceed.
+#
+# Enable with:  git config core.hooksPath .githooks
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  case "$remote_ref" in
+    refs/heads/main)
+      if [ -f .env.vercel ]; then
+        echo "[pre-push] main detected — syncing .env.vercel to Vercel…"
+        node scripts/sync-vercel-env.mjs || echo "[pre-push] env sync failed (continuing push)"
+      fi
+      ;;
+  esac
+done
+
+exit 0
