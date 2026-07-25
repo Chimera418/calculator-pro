@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { auth } from "@/features/auth/config";
+import { safeAuth } from "@/features/auth/config";
 import { prisma } from "@/lib/prisma";
 import { getUnlockedFeatureSlugs } from "@/lib/user-features";
 import type { FeatureSlug } from "@/types/features";
@@ -11,7 +11,7 @@ import { revalidatePath } from "next/cache";
 
 /** Return the current user's unlocked feature slugs (empty if signed out). */
 export async function getCurrentUserFeatures(): Promise<FeatureSlug[]> {
-  const session = await auth();
+  const session = await safeAuth();
   return getUnlockedFeatureSlugs(session?.user?.id);
 }
 
@@ -23,7 +23,7 @@ const themeSchema = z.enum(["light", "dark", "midnight", "paper", "retro"]);
 export async function saveThemePreference(
   theme: CalcTheme,
 ): Promise<{ ok: boolean; reason?: string }> {
-  const session = await auth();
+  const session = await safeAuth();
   if (!session?.user?.id) return { ok: false, reason: "not_authenticated" };
 
   const parsed = themeSchema.safeParse(theme);

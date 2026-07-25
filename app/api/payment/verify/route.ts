@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { auth } from "@/features/auth/config";
+import { safeAuth } from "@/features/auth/config";
 import { prisma } from "@/lib/prisma";
 import { verifyPaymentSignature } from "@/features/payment/webhook";
 import { revalidatePath } from "next/cache";
@@ -15,7 +15,7 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: Request) {
-  const session = await auth();
+  const session = await safeAuth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }

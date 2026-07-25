@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { auth } from "@/features/auth/config";
+import { safeAuth } from "@/features/auth/config";
 import { prisma } from "@/lib/prisma";
 import { createRazorpayOrder, getPublicKeyId } from "@/features/payment/razorpay";
 import { FEATURES } from "@/lib/constants";
@@ -14,7 +14,7 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: Request) {
-  const session = await auth();
+  const session = await safeAuth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }

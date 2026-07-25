@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { auth } from "@/features/auth/config";
+import { safeAuth } from "@/features/auth/config";
 import { prisma } from "@/lib/prisma";
 import { getUnlockedFeatureSlugs } from "@/lib/user-features";
 import { revalidatePath } from "next/cache";
@@ -19,7 +19,7 @@ export async function saveCalculation(input: {
   expression: string;
   result: string;
 }): Promise<{ ok: boolean; reason?: string }> {
-  const session = await auth();
+  const session = await safeAuth();
   if (!session?.user?.id) return { ok: false, reason: "not_authenticated" };
 
   const parsed = saveSchema.safeParse(input);
@@ -45,7 +45,7 @@ export async function saveCalculation(input: {
 }
 
 export async function clearHistory(): Promise<{ ok: boolean }> {
-  const session = await auth();
+  const session = await safeAuth();
   if (!session?.user?.id) return { ok: false };
   try {
     await prisma.calculationHistory.deleteMany({ where: { userId: session.user.id } });
