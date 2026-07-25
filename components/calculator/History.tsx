@@ -24,7 +24,7 @@ export function History({
   const gate = useFeatureGate("history");
 
   return (
-    <div className="flex h-full flex-col rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-[var(--shadow)]">
+    <div className="flex h-full flex-col rounded-3xl border border-[var(--border)] bg-[var(--surface)]/70 p-4 shadow-[var(--shadow)] backdrop-blur-xl">
       <div className="mb-3 flex items-center justify-between">
         <h2 className="flex items-center gap-2 text-sm font-semibold text-[var(--fg)]">
           <HistoryIcon className="h-4 w-4" /> History

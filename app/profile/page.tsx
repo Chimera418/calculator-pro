@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { auth } from "@/features/auth/config";
+import Image from "next/image";
+import { safeAuth } from "@/features/auth/config";
 import { getUnlockedFeatureSlugs, getCalculationHistory } from "@/lib/user-features";
 import { FEATURES, ALL_FEATURE_SLUGS } from "@/lib/constants";
 import { formatCurrency } from "@/lib/utils";
@@ -11,7 +12,7 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Profile · Calculator Pro" };
 
 export default async function ProfilePage() {
-  const session = await auth().catch(() => null);
+  const session = await safeAuth();
   if (!session?.user?.id) redirect("/login");
 
   const [unlocked, history] = await Promise.all([
@@ -34,8 +35,18 @@ export default async function ProfilePage() {
         </Link>
       </div>
       <header className="mb-8 flex items-center gap-4">
-        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--accent)] text-xl font-semibold text-[var(--accent-fg)]">
-          {(session.user.name ?? session.user.email ?? "?").charAt(0).toUpperCase()}
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[var(--accent)] text-xl font-semibold text-[var(--accent-fg)]">
+          {session.user.image ? (
+            <Image
+              src={session.user.image}
+              alt=""
+              width={56}
+              height={56}
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            (session.user.name ?? session.user.email ?? "?").charAt(0).toUpperCase()
+          )}
         </div>
         <div>
           <h1 className="text-xl font-semibold text-[var(--fg)]">

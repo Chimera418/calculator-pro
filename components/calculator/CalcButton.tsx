@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Lock } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
 import { useFeatureGate } from "@/hooks/useFeatureGate";
@@ -23,12 +23,16 @@ export interface CalcButtonProps {
 }
 
 const VARIANT_STYLES: Record<CalcVariant, string> = {
-  number: "bg-[var(--surface-2)] text-[var(--fg)] hover:bg-[var(--surface-3)]",
+  number:
+    "border border-[var(--border)]/60 bg-[var(--surface-2)]/50 text-[var(--fg)] backdrop-blur-xl hover:bg-[var(--surface-3)]/60",
   operator:
-    "bg-[var(--surface-3)] text-[var(--accent)] font-semibold hover:brightness-105",
-  function: "bg-[var(--surface-2)] text-[var(--muted)] hover:bg-[var(--surface-3)]",
-  equals: "bg-[var(--accent)] text-[var(--accent-fg)] hover:opacity-90",
-  utility: "bg-[var(--surface-2)] text-[var(--danger)] hover:bg-[var(--surface-3)]",
+    "border border-[var(--border)]/40 bg-[var(--surface-3)]/40 text-[var(--accent)] font-semibold backdrop-blur-xl hover:bg-[var(--surface-3)]/60",
+  function:
+    "border border-[var(--border)]/50 bg-[var(--surface-2)]/35 text-[var(--muted)] backdrop-blur-xl hover:bg-[var(--surface-3)]/50",
+  equals:
+    "border border-white/20 bg-[var(--accent)] text-[var(--accent-fg)] shadow-[inset_0_1px_0_rgba(255,255,255,0.35),0_4px_18px_-4px_var(--accent)] hover:opacity-90",
+  utility:
+    "border border-[var(--border)]/50 bg-[var(--surface-2)]/35 text-[var(--danger)] backdrop-blur-xl hover:bg-[var(--surface-3)]/50",
 };
 
 export function CalcButton({
@@ -43,6 +47,7 @@ export function CalcButton({
   const gate = useFeatureGate(featureSlug ?? "addition");
   const { registerLockedPress } = useFeatures();
   const { toast } = useToast();
+  const reduceMotion = useReducedMotion();
   const isLocked = featureSlug ? gate.isLocked : false;
 
   const handleClick = () => {
@@ -60,12 +65,12 @@ export function CalcButton({
       type="button"
       aria-label={isLocked ? `${ariaLabel} — locked, ${gate.planName}` : ariaLabel}
       onClick={handleClick}
-      whileTap={{ scale: 0.94 }}
+      whileTap={reduceMotion ? undefined : { scale: 0.94 }}
       transition={{ type: "spring", stiffness: 500, damping: 25 }}
       className={cn(
-        "relative flex h-16 select-none items-center justify-center rounded-2xl text-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]",
+        "relative flex aspect-square w-full select-none items-center justify-center rounded-full text-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--surface)]",
         VARIANT_STYLES[variant],
-        wide && "col-span-2",
+        wide && "col-span-2 aspect-auto",
         isLocked && "cursor-pointer",
         className,
       )}

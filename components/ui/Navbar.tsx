@@ -1,15 +1,15 @@
 import Link from "next/link";
-import { auth } from "@/features/auth/config";
+import { safeAuth } from "@/features/auth/config";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { UserMenu } from "@/components/ui/UserMenu";
 
 export async function Navbar() {
-  const session = await auth().catch(() => null);
+  const session = await safeAuth();
   const user = session?.user;
 
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--bg)]/80 backdrop-blur-md">
-      <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
+      <nav className="mx-auto flex h-16 w-full max-w-none items-center justify-between px-4 sm:px-6">
         <Link href="/" className="group flex items-center gap-3">
           <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--accent)] text-sm font-bold text-[var(--accent-fg)]">
             =

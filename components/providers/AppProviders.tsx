@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { MotionConfig } from "framer-motion";
 import { ToastProvider } from "@/components/ui/Toast";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { FeaturesProvider } from "@/hooks/useFeatures";
@@ -31,18 +32,20 @@ export function AppProviders({
   const canUsePremiumThemes = initialUnlocked.includes("themes");
 
   return (
-    <ToastProvider>
-      <ThemeProvider
-        initialTheme={initialTheme}
-        canUsePremiumThemes={canUsePremiumThemes}
-        persist={isLoggedIn}
-      >
-        <FeaturesProvider initialUnlocked={initialUnlocked} isLoggedIn={isLoggedIn}>
-          {children}
-          <PurchaseModal userName={userName} />
-          <SocialProofToast />
-        </FeaturesProvider>
-      </ThemeProvider>
-    </ToastProvider>
+    <MotionConfig reducedMotion="user">
+      <ToastProvider>
+        <ThemeProvider
+          initialTheme={initialTheme}
+          canUsePremiumThemes={canUsePremiumThemes}
+          persist={isLoggedIn}
+        >
+          <FeaturesProvider initialUnlocked={initialUnlocked} isLoggedIn={isLoggedIn}>
+            {children}
+            <PurchaseModal userName={userName} />
+            <SocialProofToast />
+          </FeaturesProvider>
+        </ThemeProvider>
+      </ToastProvider>
+    </MotionConfig>
   );
 }

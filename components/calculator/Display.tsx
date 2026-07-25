@@ -36,6 +36,11 @@ export function Display({
 }: DisplayProps) {
   const main = result ?? (expression ? prettify(expression) : "0");
 
+  // Animate only on meaningful transitions (a new result, an error, or clearing
+  // back to typing) — NOT on every keystroke, which would remount and make the
+  // number jump on each digit.
+  const animKey = error ? "error" : result !== null ? `result:${result}` : "typing";
+
   return (
     <div
       className="calc-display relative overflow-hidden rounded-2xl bg-[var(--display-bg)] px-5 py-6"
@@ -57,11 +62,11 @@ export function Display({
       <div className="mt-2 min-h-[3rem] text-right">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
-            key={main}
+            key={animKey}
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.1, ease: "easeInOut" }}
+            transition={{ duration: 0.14, ease: "easeOut" }}
             className={cn(
               "tnum break-all text-right text-4xl font-light tracking-tight text-[var(--fg)] sm:text-5xl",
               error && "animate-shake text-[var(--danger)]",
