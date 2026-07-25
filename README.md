@@ -8,6 +8,14 @@ A production-quality, satirical full-stack web app built with Next.js, React,
 TypeScript, Tailwind CSS v4, Prisma/PostgreSQL, Auth.js, and Razorpay.
 
 ---
+> This is meant to be a comical/satirical site , it does accept real money. This is meant as a project for me to learn authentication, databases integration , payment integration using Razorpay, prisma ORM and next js .
+
+> If you want to test out the app without actually paying use the demo account. 
+
+> **Email :** ```demo@calculator-pro.app```. 
+> **Password :** ```password123```
+> **(use Indian credit cards for test mode, using international cards may not work).** 
+---
 
 ## 1. Overview
 
@@ -165,6 +173,3 @@ docs/                 # Razorpay + Neon integration guides
   refund flow, and a leaderboard of the most money spent on arithmetic.
 
 ---
-
-*This is a satire of predatory monetization. Payments run in Razorpay test mode
-— no real money changes hands.*
