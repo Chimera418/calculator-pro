@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { auth, signIn } from "@/features/auth/config";
+import { safeAuth, signIn } from "@/features/auth/config";
 import { GoogleIcon, GitHubIcon } from "@/components/ui/ProviderIcons";
+import { CredentialsForm } from "@/components/auth/CredentialsForm";
 
 export const dynamic = "force-dynamic";
 
@@ -10,7 +11,7 @@ export const metadata = {
 };
 
 export default async function LoginPage() {
-  const session = await auth().catch(() => null);
+  const session = await safeAuth();
   if (session?.user) redirect("/");
 
   return (
@@ -26,6 +27,14 @@ export default async function LoginPage() {
           <p className="mt-2 text-sm text-[var(--muted)]">
             Your purchases and unlocked operators are tied to your account.
           </p>
+        </div>
+
+        <CredentialsForm />
+
+        <div className="my-6 flex items-center gap-3">
+          <span className="h-px flex-1 bg-[var(--border)]" />
+          <span className="text-xs text-[var(--muted)]">or continue with</span>
+          <span className="h-px flex-1 bg-[var(--border)]" />
         </div>
 
         <div className="space-y-3">

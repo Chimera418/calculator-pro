@@ -1,7 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 import { FEATURES } from "../lib/constants";
+import { hashPassword } from "../features/auth/password";
 
 const prisma = new PrismaClient();
+
+// Test/dummy account credentials for local sign-in via email + password.
+const DEMO_EMAIL = "demo@calculator-pro.app";
+const DEMO_PASSWORD = "password123";
 
 async function main() {
   console.log("🌱 Seeding Calculator Pro database…\n");
@@ -30,17 +35,20 @@ async function main() {
   console.log(`✔ Seeded ${Object.keys(FEATURES).length} features.`);
 
   // 2. Seed a demo user who has already purchased a couple of expansions.
+  //    Password is hashed so the account can be used to test email sign-in.
+  const demoPasswordHash = await hashPassword(DEMO_PASSWORD);
   const demoUser = await prisma.user.upsert({
-    where: { email: "demo@calculator-pro.app" },
-    update: {},
+    where: { email: DEMO_EMAIL },
+    update: { passwordHash: demoPasswordHash },
     create: {
-      email: "demo@calculator-pro.app",
+      email: DEMO_EMAIL,
       name: "Demo Spender",
+      passwordHash: demoPasswordHash,
       image: "https://api.dicebear.com/9.x/initials/svg?seed=Demo%20Spender",
       themePreference: { create: { theme: "DARK" } },
     },
   });
-  console.log(`✔ Seeded demo user (${demoUser.email}).`);
+  console.log(`✔ Seeded demo user (${demoUser.email} / ${DEMO_PASSWORD}).`);
 
   // 3. Give the demo user Multiplication + Division, with fake payment records.
   const purchases: Array<{ slug: string; amount: number }> = [
